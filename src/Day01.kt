@@ -1,17 +1,36 @@
+import kotlin.math.max
+
 fun main() {
     fun part1(input: List<String>): Int {
-        return input.size
+        var ans = 0
+        var cur = 0
+        input.forEach { cal ->
+            if (cal == "") {
+                cur = 0
+            } else {
+                cur += cal.toInt()
+                ans = max(ans, cur)
+            }
+        }
+        return ans
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val calorieList = mutableListOf<Int>()
+        var cur = 0
+        input.forEach { cal ->
+            if (cal == "") {
+                calorieList += cur
+                cur = 0
+            } else {
+                cur += cal.toInt()
+            }
+        }
+        calorieList += cur
+        return calorieList.sortedDescending().subList(0, 3).sum()
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
+    val input = readInput("in")
     part1(input).println()
     part2(input).println()
 }
